@@ -66,3 +66,13 @@ After extraction, point `dataset_root` in `configs/project.yaml` to the director
 - A confidence score is not calibrated merely because it lies in [0, 1]. Evaluate calibration and risk–coverage.
 - Report failures and compute cost, not just best-case renderings.
 - The final contribution must be adjusted if the literature review finds an equivalent method.
+
+## H2O first-run pipeline
+
+See [`docs/h2o_pipeline.md`](docs/h2o_pipeline.md). After accepting ETH Zurich's dataset terms and receiving credentials, run:
+
+```powershell
+python scripts/download_and_run_h2o.py
+```
+
+This downloads only Subject 1's annotation-only H2O archive by default, extracts it, and generates the first 3D landmark-angle baseline. Use `--mode all` later for all five camera views needed by multi-view 4D Gaussian Splatting. Credentials are prompted at runtime and are not saved. Raw dataset files must not be committed to GitHub.
