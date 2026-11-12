@@ -1,0 +1,4 @@
+# Install only in a disposable cloud GPU notebook after checking the chosen
+# 4DGS baseline's exact CUDA/PyTorch requirements. Do not install blindly.
+# The original CVPR 2024 4D-GS repository uses older CUDA/PyTorch extensions.
+# See docs/compute_plan.md.
