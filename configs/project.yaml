@@ -1,33 +1,29 @@
 project_name: SplatROM
 python_version: "3.10"
-
 compute:
   local_gpu_training: false
   local_max_ram_gb: 8
   local_gpu_vram_gb: 2
   cloud_gpu_for_4dgs: true
-
 dataset:
-  name: H2O
-  dataset_root: "data/raw/h2o"
-  initial_mode: pose_only
-  initial_subjects: [subject1]
-  max_sequences: 1
-  max_frames_per_sequence: 120
-  # Keep frame/image resolution small during the first cloud baseline.
-  image_max_width: 640
-  image_max_height: 360
-
+  name: SHOW3D
+  dataset_root: "data/raw/show3d"
+  subject_id: "ISH822"
+  scene_id: "aria_inspecting_3ab0"
+  split: "train_development_only"
+  hand_pose_version: "v3"
+  object_pose_version: "v2"
+  interaction_field_version: "v1"
+  views: ["rig0", "rig1", "rig2", "rig3"]
+  headset_validation_view: "headset0"
+  source_fps: 60
+  extraction_fps: 10
+  posed_only: true
+  object_pose_confidence_threshold: 0.5
+  image_format: "jpeg"
+  image_quality: 90
 experiments:
   subject_independent_split: true
-  corruptions:
-    - clean
-    - frame_drop
-    - partial_occlusion
-    - motion_blur
-  report_metrics:
-    - joint_angle_mae_deg
-    - joint_angle_rmse_deg
-    - temporal_jitter_deg
-    - calibration_error
-    - risk_coverage_auc
+  do_not_tune_on_official_test_subjects: true
+  corruptions: ["clean", "view_drop", "frame_drop", "partial_occlusion", "motion_blur"]
+  report_metrics: ["psnr", "ssim", "lpips", "mpjpe_3d_mm", "headset0_reprojection_error_px", "interaction_field_distance_mm", "temporal_jitter", "risk_coverage_auc"]
