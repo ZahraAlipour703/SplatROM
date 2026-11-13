@@ -11,3 +11,6 @@ data/processed/**
 !data/processed/.gitkeep
 results/**
 !results/.gitkeep
+
+# Local SHOW3D API checkout
+/show3d/
