@@ -1,0 +1,30 @@
+diff --git a/scene/dataset_readers.py b/scene/dataset_readers.py
+index a2cf6e7..d8ddaf9 100644
+--- a/scene/dataset_readers.py
++++ b/scene/dataset_readers.py
+@@ -12,11 +12,16 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, images_folder, max_workers
+ 
+         if intr.model == "SIMPLE_PINHOLE":
+             focal_length_x = intr.params[0]
++            focal_length_y = focal_length_x
++            cx = intr.params[1]
++            cy = intr.params[2]
+             FovY = focal2fov(focal_length_x, height)
+             FovX = focal2fov(focal_length_x, width)
+         elif intr.model == "PINHOLE":
+             focal_length_x = intr.params[0]
+             focal_length_y = intr.params[1]
++            cx = intr.params[2]
++            cy = intr.params[3]
+             FovY = focal2fov(focal_length_y, height)
+             FovX = focal2fov(focal_length_x, width)
+         else:
+@@ -34,6 +39,7 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, images_folder, max_workers
+             uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, 
+             image=image, depth=None,
+             image_path=image_path, image_name=image_name, 
+-            width=width, height=height
++            width=width, height=height,
++            fl_x=focal_length_x, fl_y=focal_length_y, cx=cx, cy=cy
+         )
+         return cam_info
